@@ -5,11 +5,11 @@ package Library;
  *
  */
 public class Book {
-	String title;
-	String author;
-	String genre;
-	int pageNumber;
-	int copies;
+	private String title;
+	private String author;
+	private String genre;
+	private int pageNumber;
+	private int copies;
 	
 	/** This constructor creates an instance of Book
 	 * @param title Book title
@@ -18,7 +18,7 @@ public class Book {
 	 * @param pageNumber Number of pages in the book
 	 * @param copies Number of copies of the book
 	 */
-	public Book(String title, String author, String genre, int pageNumber, int copies) {
+	public Book(final String title,final  String author,final  String genre,final  int pageNumber,final  int copies) {
 		super();
 		this.title = title;
 		this.author = author;

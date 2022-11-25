@@ -37,10 +37,12 @@ public class BookMaker {
 		}
 	}
 
-	private static void confirmNewBook(List<Book> bookList, String title, String author, String genre, int pageNumber, int copies, StringBuilder result,Scanner in) {
+	private static void confirmNewBook(List<Book> bookList, String title, String author, String genre, int pageNumber,
+			int copies, StringBuilder result, Scanner in) {
 		System.out.println(result);
-		System.out.println("Confirmez vous les informations renseignéees ? (Oui / Non)");
+		System.out.println("Confirmez vous les informations renseignéees ? (Oui : o / Non : n)");
 		String confirm = in.next();
+		confirm.toLowerCase();
 		switch (confirm) {
 		case "o":
 			Book book = new Book(title, author, genre, pageNumber, copies);

@@ -63,6 +63,7 @@ public class BookManager {
 			System.out.println("Retour menu : 'm'");
 			System.out.println("Veuillez entrer le nom de l'auteur.ice du livre recherché :");
 			String searchedAuthor = in.nextLine();
+			searchedAuthor.toLowerCase();
 			switch (searchedAuthor) {
 			case "m":
 				Menu.mainMenu(bookList);
@@ -133,7 +134,7 @@ public class BookManager {
 			String userSearchChoice = in.next();
 			switch (userSearchChoice) {
 			case "o":
-				searchBookByTitle(bookList, bookOfSearchedAuthor, in);
+				searchBookByTitle(bookList, bookOfSearchedAuthor);
 				break;
 			case "n":
 				System.out.println("Souhaitez-vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
@@ -173,33 +174,41 @@ public class BookManager {
 	}
 
 	// search menu for book modifying
-	private static void searchBookByTitle(final List<Book> bookList, final List<Book> bookOfSearchedAuthor,
-			final Scanner in) {
+	private static void searchBookByTitle(final List<Book> bookList, final List<Book> bookOfSearchedAuthor) {
+		Scanner in = new Scanner(System.in);
 		System.out.println("Renseignez le titre du livre à modifier :");
 		String searchTitle = in.nextLine();
+		searchTitle.toLowerCase();
 		for (Book book : bookOfSearchedAuthor) {
-			if (searchTitle.equalsIgnoreCase(searchTitle)) {
-				System.out.println("Vous avez selectionné" + book.getTitle());
+			if (searchTitle.equalsIgnoreCase(book.getTitle())) {
+				System.out.println("Vous avez selectionné" + " " + book.getTitle());
 				System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
 				String userResponse = in.next();
 				switch (userResponse) {
 				case "o":
 					Book selectedBook = book;
-					bookModifier(bookList, selectedBook, in);
+					bookModifier(bookList, selectedBook);
 					break;
 				case "n":
-					searchBookByTitle(bookList, bookOfSearchedAuthor, in);
+					searchBookByTitle(bookList, bookOfSearchedAuthor);
 					break;
 				default:
 					System.out.println("entrée invalide");
-					searchBookByTitle(bookList, bookOfSearchedAuthor, in);
+					searchBookByTitle(bookList, bookOfSearchedAuthor);
 				}
+			} else {
+				System.out.println("Aucun titre corespondant, merci de choisir dans cette liste :");
+				for (Book books : bookOfSearchedAuthor) {
+					System.out.println(books.showInfos());
+				}
+				searchBookByTitle(bookList, bookOfSearchedAuthor);
 			}
 		}
 	}
-	
+
 	// menu for book modifying
-	private static void bookModifier(final List<Book> bookList, final Book book, final Scanner in) {
+	private static void bookModifier(final List<Book> bookList, final Book book) {
+		Scanner in = new Scanner(System.in);
 		System.out.println("Vous souhaitez modifier :");
 		System.out.println("1 - le titre");
 		System.out.println("2 - l'auteur.ice");
@@ -208,7 +217,9 @@ public class BookManager {
 		System.out.println("5 - le nombre de copies");
 		System.out.println("6 - Retour au menu principal");
 		int userChoice = in.nextInt();
-		switch(userChoice) {
+		in.nextLine(); // Consume newline left-over to workaround a bug found at
+						// https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
+		switch (userChoice) {
 		case 1:
 			System.out.println("Inserez le nouveau titre :");
 			String newTitle = in.nextLine();
@@ -216,23 +227,35 @@ public class BookManager {
 			break;
 		case 2:
 			System.out.println("Inserez le/a nouveau/elle auteur.ice :");
+			String newAuthor = in.nextLine();
+			book.setAuthor(newAuthor);
+			bookModifier(bookList, book);
 			break;
 		case 3:
 			System.out.println("Inserez le nouveau genre :");
+			String newGenre = in.nextLine();
+			book.setGenre(newGenre);
+			bookModifier(bookList, book);
 			break;
 		case 4:
 			System.out.println("Inserez le nouveau nombre de pages :");
+			int newPageNumber = in.nextInt();
+			book.setPageNumber(newPageNumber);
+			bookModifier(bookList, book);
 			break;
 		case 5:
 			System.out.println("Inserez le nouveau nombre de copies :");
+			int newCopies = in.nextInt();
+			book.setCopies(newCopies);
+			bookModifier(bookList, book);
 			break;
 		case 6:
 			Menu.mainMenu(bookList);
 			break;
 		default:
-			
+			System.out.println("entrée invalide");
+			bookModifier(bookList, book);
 		}
-		// TODO: book modifying
+		bookModifier(bookList, book);
 	}
-
 }

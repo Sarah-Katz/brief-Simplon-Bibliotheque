@@ -50,6 +50,9 @@ public class Menu {
 			case 3:
 				BookManager.searchBook(bookList);
 				break;
+			default:
+				System.out.println("entrée invalide");
+				mainMenu(bookList);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

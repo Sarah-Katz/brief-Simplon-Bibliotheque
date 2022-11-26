@@ -15,7 +15,7 @@ public class Book {
 	private int copies;
 
 	/**
-	 * This constructor creates an instance of Book
+	 * This constructor creates an instance of Book using parameters
 	 * 
 	 * @param title      Book title
 	 * @param author     Book author
@@ -32,11 +32,13 @@ public class Book {
 		this.copies = copies;
 	}
 
-	/** TODO: doc this
-	 * @return
+	/**
+	 * this method can be called to display informations about the books in bookList
+	 * 
+	 * @return List of books registered in the program
 	 */
 	public StringBuilder showInfos() {
-		StringBuilder result =  new StringBuilder();
+		StringBuilder result = new StringBuilder();
 		result.append("Titre : ").append(this.getTitle()).append("\n");
 		result.append("Auteur.ice : ").append(this.getAuthor()).append("\n");
 		result.append("Genre : ").append(this.getGenre()).append("\n");
@@ -44,7 +46,7 @@ public class Book {
 		result.append("Nombre de copies : ").append(this.getCopies()).append("\n");
 		return result;
 	}
-	
+
 	/**
 	 * @return the title
 	 */
@@ -88,32 +90,31 @@ public class Book {
 	}
 
 	/**
-	 * @return the pageNumber
+	 * @return the number of pages
 	 */
 	public int getPageNumber() {
 		return pageNumber;
 	}
 
 	/**
-	 * @param pageNumber the pageNumber to set
+	 * @param pageNumber the number of pages to set
 	 */
 	public void setPageNumber(final int pageNumber) {
 		this.pageNumber = pageNumber;
 	}
 
 	/**
-	 * @return the copies
+	 * @return the number of copies
 	 */
 	public int getCopies() {
 		return copies;
 	}
 
 	/**
-	 * @param copies the copies to set
+	 * @param copies the number of copies to set
 	 */
 	public void setCopies(final int copies) {
 		this.copies = copies;
 	}
-	
-	
+
 }

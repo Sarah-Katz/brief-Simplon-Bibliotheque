@@ -19,6 +19,9 @@ public class Menu {
 	}
 
 	/**
+	 * This method calls the main menu to be displayed and let's user decide what
+	 * they want to do using numbers for action selection through a switch
+	 * 
 	 * @param bookList
 	 */
 	protected static void mainMenu(final List<Book> bookList) {

@@ -12,6 +12,12 @@ import java.util.Scanner;
  */
 public class BookManager {
 
+	/**
+	 * This method lets the user instance a new Book in bookList using parameters
+	 * he'll input
+	 * 
+	 * @param bookList List of books registered in the program
+	 */
 	protected static void newBook(List<Book> bookList) {
 		try {
 			Scanner in = new Scanner(System.in);
@@ -46,9 +52,9 @@ public class BookManager {
 	}
 
 	/**
-	 * TODO : this doc
+	 * This method let's the user search a list of books by author name *
 	 * 
-	 * @param bookList
+	 * @param bookList List of books registered in the program
 	 */
 	protected static void searchBook(List<Book> bookList) {
 		try {
@@ -84,6 +90,11 @@ public class BookManager {
 		}
 	}
 
+	/**
+	 * This method will display infos about all books in the bookList param
+	 * 
+	 * @param bookList List of books registered in the program
+	 */
 	protected static void showBookList(final List<Book> bookList) {
 		for (Book book : bookList) {
 			System.out.println(book.showInfos());

@@ -79,9 +79,9 @@ public class BookManager {
 						System.out.println(book.showInfos());
 					}
 					isFoundResult = true;
-					confirmSearchBook(bookList, in, isFoundResult);
+					confirmSearchBook(bookList, in, isFoundResult, bookOfSearchedAuthor);
 				} else {
-					confirmSearchBook(bookList, in, isFoundResult);
+					confirmSearchBook(bookList, in, isFoundResult, bookOfSearchedAuthor);
 				}
 			}
 
@@ -102,7 +102,7 @@ public class BookManager {
 		Menu.mainMenu(bookList);
 	}
 
-	// confirmation menu for newBook inputs
+	// confirmation menu for newBook()
 	private static void confirmNewBook(final List<Book> bookList, final String title, final String author,
 			final String genre, final int pageNumber, final int copies, final StringBuilder result, final Scanner in) {
 		System.out.println(result);
@@ -125,10 +125,35 @@ public class BookManager {
 		}
 	}
 
-	// confirmation menu when searchBook() returns no result
-	private static void confirmSearchBook(final List<Book> bookList, final Scanner in, final boolean isFoundResult) {
+	// confirmation menu for searchBook()
+	private static void confirmSearchBook(final List<Book> bookList, final Scanner in, final boolean isFoundResult,
+			final List<Book> bookOfSearchedAuthor) {
 		if (isFoundResult == true) {
-			System.out.println("Souhaitez vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
+			System.out.println("Souhaitez-vous modifier les informations d'un livre ? Oui : o / Non : n");
+			String userSearchChoice = in.next();
+			switch (userSearchChoice) {
+			case "o":
+				searchBookByTitle(bookList, bookOfSearchedAuthor, in);
+				break;
+			case "n":
+				System.out.println("Souhaitez-vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
+				String userChoice = in.next();
+				switch (userChoice) {
+				case "o":
+					searchBook(bookList);
+					break;
+				case "n":
+					Menu.mainMenu(bookList);
+					break;
+				default:
+					confirmSearchBook(bookList, in, isFoundResult, bookOfSearchedAuthor);
+				}
+				break;
+			default:
+				System.out.println("entrée invalide");
+				confirmSearchBook(bookList, in, isFoundResult, bookOfSearchedAuthor);
+			}
+
 		} else {
 			System.out.println(
 					"Aucun livres de cet.te auteur.ice n'est présent, souhaitez vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
@@ -143,7 +168,71 @@ public class BookManager {
 			break;
 		default:
 			System.out.println("entrée invalide");
+			confirmSearchBook(bookList, in, isFoundResult, bookOfSearchedAuthor);
 		}
+	}
+
+	// search menu for book modifying
+	private static void searchBookByTitle(final List<Book> bookList, final List<Book> bookOfSearchedAuthor,
+			final Scanner in) {
+		System.out.println("Renseignez le titre du livre à modifier :");
+		String searchTitle = in.nextLine();
+		for (Book book : bookOfSearchedAuthor) {
+			if (searchTitle.equalsIgnoreCase(searchTitle)) {
+				System.out.println("Vous avez selectionné" + book.getTitle());
+				System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
+				String userResponse = in.next();
+				switch (userResponse) {
+				case "o":
+					Book selectedBook = book;
+					bookModifier(bookList, selectedBook, in);
+					break;
+				case "n":
+					searchBookByTitle(bookList, bookOfSearchedAuthor, in);
+					break;
+				default:
+					System.out.println("entrée invalide");
+					searchBookByTitle(bookList, bookOfSearchedAuthor, in);
+				}
+			}
+		}
+	}
+	
+	// menu for book modifying
+	private static void bookModifier(final List<Book> bookList, final Book book, final Scanner in) {
+		System.out.println("Vous souhaitez modifier :");
+		System.out.println("1 - le titre");
+		System.out.println("2 - l'auteur.ice");
+		System.out.println("3 - le genre");
+		System.out.println("4 - le nombre de pages");
+		System.out.println("5 - le nombre de copies");
+		System.out.println("6 - Retour au menu principal");
+		int userChoice = in.nextInt();
+		switch(userChoice) {
+		case 1:
+			System.out.println("Inserez le nouveau titre :");
+			String newTitle = in.nextLine();
+			book.setTitle(newTitle);
+			break;
+		case 2:
+			System.out.println("Inserez le/a nouveau/elle auteur.ice :");
+			break;
+		case 3:
+			System.out.println("Inserez le nouveau genre :");
+			break;
+		case 4:
+			System.out.println("Inserez le nouveau nombre de pages :");
+			break;
+		case 5:
+			System.out.println("Inserez le nouveau nombre de copies :");
+			break;
+		case 6:
+			Menu.mainMenu(bookList);
+			break;
+		default:
+			
+		}
+		// TODO: book modifying
 	}
 
 }

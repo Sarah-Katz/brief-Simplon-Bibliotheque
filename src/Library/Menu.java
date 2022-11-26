@@ -31,7 +31,7 @@ public class Menu {
 			System.out.println("Bienvenue dans le menu de navigation, vous souhaitez : ");
 			System.out.println("1 - Enregistrer un nouveau livre");
 			System.out.println("2 - Afficher la liste des livres");
-			System.out.println("3 - Rechercher un livre");
+			System.out.println("3 - Rechercher ou modifier un livre");
 			System.out.println();
 			System.out.println();
 			System.out.println();

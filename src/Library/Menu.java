@@ -21,7 +21,7 @@ public class Menu {
 	/**
 	 * @param bookList
 	 */
-	protected static void mainMenu(List<Book> bookList) {
+	protected static void mainMenu(final List<Book> bookList) {
 		try {
 			Scanner in = new Scanner(System.in);
 			System.out.println("-------------------------------------------------------");
@@ -42,7 +42,7 @@ public class Menu {
 				BookManager.newBook(bookList);
 				break;
 			case 2:
-//				BookManager.showBookList(bookList);
+				BookManager.showBookList(bookList);
 				break;
 			case 3:
 				BookManager.searchBook(bookList);

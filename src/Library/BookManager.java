@@ -84,6 +84,13 @@ public class BookManager {
 		}
 	}
 
+	protected static void showBookList(final List<Book> bookList) {
+		for (Book book : bookList) {
+			System.out.println(book.showInfos());
+		}
+		Menu.mainMenu(bookList);
+	}
+
 	// confirmation menu for newBook inputs
 	private static void confirmNewBook(final List<Book> bookList, final String title, final String author,
 			final String genre, final int pageNumber, final int copies, final StringBuilder result, final Scanner in) {

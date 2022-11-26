@@ -1,4 +1,4 @@
-package Library;
+package libraryApp;
 
 /**
  * This class represents a book and it's informations : Title, Author, Genre,

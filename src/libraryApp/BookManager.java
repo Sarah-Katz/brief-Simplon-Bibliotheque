@@ -1,5 +1,6 @@
 package libraryApp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +20,8 @@ public class BookManager {
 	 * @param bookList List of books registered in the program
 	 */
 	protected static void newBook(final Library library, final List<Book> bookList) {
+		int pageNumber = 0;
+		int copies = 0;
 		try {
 			Scanner in = new Scanner(System.in);
 			System.out.println("Retour menu : 'm'");
@@ -34,10 +37,18 @@ public class BookManager {
 				String author = in.nextLine();
 				System.out.println("Le genre du livre :");
 				String genre = in.nextLine();
-				System.out.println("Le nombre de page :");
-				int pageNumber = in.nextInt();
+				try {
+					System.out.println("Le nombre de page :");
+					pageNumber = in.nextInt();
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("L'information demandée doit être un nombre");
+					
+				}
+
 				System.out.println("Le nombre de copies :");
-				int copies = in.nextInt();
+				copies = in.nextInt();
+
 				System.out.println("Veuillez confirmer les informations renseignées");
 				StringBuilder result = new StringBuilder();
 				result.append("Titre : ").append(title).append("\n").append("Auteur.ice : ").append(author).append("\n")
@@ -104,8 +115,9 @@ public class BookManager {
 	}
 
 	// confirmation menu for newBook()
-	private static void confirmNewBook(final Library library, final List<Book> bookList, final String title, final String author,
-			final String genre, final int pageNumber, final int copies, final StringBuilder result, final Scanner in) {
+	private static void confirmNewBook(final Library library, final List<Book> bookList, final String title,
+			final String author, final String genre, final int pageNumber, final int copies, final StringBuilder result,
+			final Scanner in) {
 		System.out.println(result);
 		System.out.println("Confirmez vous les informations renseignéees ? (Oui : o / Non : n)");
 		String confirm = in.next();
@@ -127,8 +139,8 @@ public class BookManager {
 	}
 
 	// confirmation menu for searchBook()
-	private static void confirmSearchBook(final Library library, final List<Book> bookList, final Scanner in, final boolean isFoundResult,
-			final List<Book> bookOfSearchedAuthor) {
+	private static void confirmSearchBook(final Library library, final List<Book> bookList, final Scanner in,
+			final boolean isFoundResult, final List<Book> bookOfSearchedAuthor) {
 		if (isFoundResult == true) {
 			System.out.println("Souhaitez-vous modifier les informations d'un livre ? Oui : o / Non : n");
 			String userSearchChoice = in.next();
@@ -174,7 +186,8 @@ public class BookManager {
 	}
 
 	// search menu for book modifying
-	private static void searchBookByTitle(final Library library, final List<Book> bookList, final List<Book> bookOfSearchedAuthor) {
+	private static void searchBookByTitle(final Library library, final List<Book> bookList,
+			final List<Book> bookOfSearchedAuthor) {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Renseignez le titre du livre à modifier :");
 		String searchTitle = in.nextLine();
@@ -209,13 +222,16 @@ public class BookManager {
 	// menu for book modifying
 	private static void bookModifier(final Library library, final List<Book> bookList, final Book book) {
 		Scanner in = new Scanner(System.in);
-		System.out.println("Vous souhaitez modifier :");
-		System.out.println("1 - le titre");
-		System.out.println("2 - l'auteur.ice");
-		System.out.println("3 - le genre");
-		System.out.println("4 - le nombre de pages");
-		System.out.println("5 - le nombre de copies");
-		System.out.println("6 - Retour au menu principal");
+		System.out.println("______________________________");
+		System.out.println("|                            |");
+		System.out.println("|Vous souhaitez modifier :   |");
+		System.out.println("|1 - le titre                |");
+		System.out.println("|2 - l'auteur.ice            |");
+		System.out.println("|3 - le genre                |");
+		System.out.println("|4 - le nombre de pages      |");
+		System.out.println("|5 - le nombre de copies     |");
+		System.out.println("|6 - Retour au menu principal|");
+		System.out.println("|____________________________|");
 		int userChoice = in.nextInt();
 		in.nextLine(); // Consume newline left-over to workaround a bug found at
 						// https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo

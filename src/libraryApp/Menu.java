@@ -1,6 +1,8 @@
 package libraryApp;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,18 +28,19 @@ public class Menu {
 	 * @param bookList
 	 */
 	protected static void mainMenu(final Library library, final List<Book> bookList) {
-		try {				
+		try {
 			Scanner in = new Scanner(System.in);
-			System.out.println("-------------------------------------------------------");
-			System.out.println("Bienvenue dans le menu de navigation, vous souhaitez : ");
-			System.out.println("1 - Enregistrer un nouveau livre");
-			System.out.println("2 - Afficher la liste des livres");
-			System.out.println("3 - Rechercher ou modifier un livre");
-			System.out.println();
-			System.out.println();
-			System.out.println();
-			System.out.println("7 - Exporter la liste des livre en CSV");
-			System.out.println("-------------------------------------------------------");
+			System.out.println("_________________________________________________________");
+			System.out.println("|                                                       |");
+			System.out.println("|Bienvenue dans le menu de navigation, vous souhaitez : |");
+			System.out.println("|1 - Enregistrer un nouveau livre                       |");
+			System.out.println("|2 - Afficher la liste des livres                       |");
+			System.out.println("|3 - Rechercher ou modifier un livre                    |");
+			System.out.println("|4 -                                                    |");
+			System.out.println("|5 -                                                    |");
+			System.out.println("|6 - Importer la liste des livres en CSV                |");
+			System.out.println("|7 - Exporter la liste des livres en CSV                |");
+			System.out.println("|_______________________________________________________|");
 
 			int userChoice = in.nextInt();
 
@@ -51,15 +54,23 @@ public class Menu {
 			case 3:
 				BookManager.searchBook(library, bookList);
 				break;
+			case 6:
+				CSVManager.importCSV(library, bookList);
+				break;
 			case 7:
 				CSVManager.exportCSV(library, bookList);
 				break;
 			default:
-				System.out.println("entrée invalide");
+				System.out.println("/!\\ Merci de renseigner le chiffre de l'action souhaitée /!\\");
 				mainMenu(library, bookList);
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (InputMismatchException e) {
+			System.out.println("/!\\ Merci de renseigner le chiffre de l'action souhaitée /!\\");
+			mainMenu(library, bookList);
+		} catch (IOException e) {
+			System.out.println("oops");
+			e.printStackTrace();
+			mainMenu(library, bookList);
 		}
 	}
 }

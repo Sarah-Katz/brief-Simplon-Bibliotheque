@@ -77,7 +77,7 @@ public class BookManager {
 				if (bookOfSearchedAuthor.size() > 0) {
 					System.out.println("Voici les livres de cet.te auteur.ice :");
 					for (Book book : bookOfSearchedAuthor) {
-						System.out.println(book.showInfos());
+						System.out.println(book.showBookInfos());
 					}
 					isFoundResult = true;
 					confirmSearchBook(library, bookList, in, isFoundResult, bookOfSearchedAuthor);
@@ -98,7 +98,7 @@ public class BookManager {
 	 */
 	protected static void showBookList(final Library library, final List<Book> bookList) {
 		for (Book book : bookList) {
-			System.out.println(book.showInfos());
+			System.out.println(book.showBookInfos());
 		}
 		Menu.mainMenu(library, bookList);
 	}
@@ -199,7 +199,7 @@ public class BookManager {
 			} else {
 				System.out.println("Aucun titre corespondant, merci de choisir dans cette liste :");
 				for (Book books : bookOfSearchedAuthor) {
-					System.out.println(books.showInfos());
+					System.out.println(books.showBookInfos());
 				}
 				searchBookByTitle(library, bookList, bookOfSearchedAuthor);
 			}

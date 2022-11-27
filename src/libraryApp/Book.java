@@ -36,7 +36,7 @@ public class Book {
 	 * 
 	 * @return List of books registered in the program
 	 */
-	public StringBuilder showInfos() {
+	public StringBuilder showBookInfos() {
 		StringBuilder result = new StringBuilder();
 		result.append("Titre : ").append(this.getTitle()).append("\n");
 		result.append("Auteur.ice : ").append(this.getAuthor()).append("\n");

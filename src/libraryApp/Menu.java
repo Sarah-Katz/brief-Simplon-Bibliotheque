@@ -26,7 +26,7 @@ public class Menu {
 	 * @param bookList
 	 */
 	protected static void mainMenu(final Library library, final List<Book> bookList) {
-		try {
+		try {				
 			Scanner in = new Scanner(System.in);
 			System.out.println("-------------------------------------------------------");
 			System.out.println("Bienvenue dans le menu de navigation, vous souhaitez : ");
@@ -36,7 +36,7 @@ public class Menu {
 			System.out.println();
 			System.out.println();
 			System.out.println();
-			System.out.println();
+			System.out.println("7 - Exporter la liste des livre en CSV");
 			System.out.println("-------------------------------------------------------");
 
 			int userChoice = in.nextInt();
@@ -50,6 +50,9 @@ public class Menu {
 				break;
 			case 3:
 				BookManager.searchBook(library, bookList);
+				break;
+			case 7:
+				CSVManager.exportCSV(library, bookList);
 				break;
 			default:
 				System.out.println("entrée invalide");

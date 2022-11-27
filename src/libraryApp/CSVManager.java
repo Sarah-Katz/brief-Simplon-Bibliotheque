@@ -17,10 +17,11 @@ public class CSVManager {
 	private static final String SEPARATOR = "\n";
 	private static final String HEADER = "Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies";
 
-	/**
-	 * TODO: doc
+	
+	/**This method exports the list of books in the Library in a .csv file
 	 * 
-	 * @param bookList
+	 * @param library the Library containing bookList 
+	 * @param bookList the bookList you want exported in .csv
 	 */
 	protected static void exportCSV(final Library library, final List<Book> bookList) {
 		FileWriter bookListCSV = null;

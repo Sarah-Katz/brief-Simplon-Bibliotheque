@@ -24,7 +24,6 @@ public class Book {
 	 * @param copies     Number of copies of the book
 	 */
 	public Book(final String title, final String author, final String genre, final int pageNumber, final int copies) {
-		super();
 		this.title = title;
 		this.author = author;
 		this.genre = genre;

@@ -15,6 +15,7 @@ public class Menu {
 
 	/**
 	 * Initializes the program and the book list
+	 * If the file exists it asks the user if they want to import it
 	 */
 	public static void startProgram() {
 		try {

@@ -96,7 +96,7 @@ public class CSVManager {
 				Integer pageNumber = Integer.valueOf(pageNumberA);
 				Integer copies = Integer.valueOf(copiesA);
 				Book book = new Book(title, author, genre, pageNumber, copies);
-				System.out.println(book.getTitle());
+				System.out.println("Liste importée !");
 				newBookList.add(book);
 			}
 			Menu.mainMenu(library, newBookList);

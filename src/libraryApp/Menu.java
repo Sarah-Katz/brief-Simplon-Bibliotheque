@@ -1,5 +1,6 @@
 package libraryApp;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -16,9 +17,34 @@ public class Menu {
 	 * Initializes the program and the book list
 	 */
 	public static void startProgram() {
-		List<Book> bookList = new ArrayList<Book>();
-		Library library = new Library(bookList);
-		mainMenu(library, bookList);
+		try {
+			File file = new File("Liste_des_livres.csv");
+			List<Book> bookList = new ArrayList<Book>();
+			Library library = new Library(bookList);
+			if (file.exists()) {
+				Scanner in = new Scanner(System.in);
+				System.out.println(
+						"Fichier de la liste detecté, souhaitez-vous importer la liste des livres dans le programme ?");
+				System.out.println("(Oui : o / Non : n)");
+				String userResponse = in.nextLine();
+				switch (userResponse) {
+				case "o":
+					CSVManager.importCSV(library, bookList);
+					break;
+				case "n":
+					mainMenu(library, bookList);
+					break;
+				default:
+					System.out.println("entrée invalide");
+					startProgram();
+				}
+			} else {
+				mainMenu(library, bookList);
+			}
+		} catch (IOException e) {
+			System.out.println("Error in 'startProgram'");
+			e.printStackTrace();
+		}
 	}
 
 	/**

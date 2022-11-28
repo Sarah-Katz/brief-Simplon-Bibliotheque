@@ -84,7 +84,7 @@ public class CSVManager {
 	 * @param library  the Library containing bookList
 	 * @param bookList the bookList you want imported from the .csv
 	 */
-	protected static void importCSV(final Library library, final List<Book> bookList) throws IOException {
+	protected static void importCSV(final Library library, final List<Book> bookList) {
 		try {
 			List<Book> newBookList = new ArrayList<Book>();
 			File file = new File("Liste_des_livres.csv");

@@ -23,6 +23,7 @@ public class Book {
 	 * @param genre      Book genre
 	 * @param pageNumber Number of pages in the book
 	 * @param copies     Number of copies of the book
+	 * @param isRented   The book's availability
 	 */
 	public Book(final String title, final String author, final String genre, final int pageNumber, final int copies, final boolean isRented) {
 		this.title = title;

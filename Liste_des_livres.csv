@@ -1,5 +1,5 @@
-Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies
-L'age d'or,Antoine,Thiller,5467,35
-Le vent et la pluie,Amelie,Philosophie,789,12
-Pet,Pierre-Emmanuel Emmanuel,Roman,407,4
-Albert 1er,Jean-Michel Montagné,Histoire,150,7
+Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies,Est loué ?
+L'age d'or,Antoine,Thiller,5467,35,false
+Le vent et la pluie,Amelie,Philosophie,789,12,true
+Pour l'amour de tous,Pierre-Emmanuel Emmanuel,Roman,407,4,true
+Albert 1er,Jean-Michel Montagné,Histoire,150,7,false

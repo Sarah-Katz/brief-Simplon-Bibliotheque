@@ -15,10 +15,6 @@ public class Library {
 	Library(final List<Book> bookList) {
 		this.setBookList(bookList);
 	}
-	
-	public  void exportBookList() {
-		
-	}
 
 	/**
 	 * @return the bookList

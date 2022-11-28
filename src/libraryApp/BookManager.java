@@ -58,7 +58,9 @@ public class BookManager {
 			}
 
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 	}
 
@@ -98,7 +100,9 @@ public class BookManager {
 			}
 
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 	}
 
@@ -140,7 +144,9 @@ public class BookManager {
 				confirmNewBook(library, bookList, title, author, genre, pageNumber, copies, result);
 			}
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 
 	}
@@ -194,7 +200,9 @@ public class BookManager {
 				confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
 			}
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 
 	}
@@ -264,7 +272,9 @@ public class BookManager {
 				}
 			}
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 
 	}
@@ -325,7 +335,9 @@ public class BookManager {
 			}
 			bookModifier(library, bookList, book);
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 
 	}
@@ -370,7 +382,9 @@ public class BookManager {
 				}
 			}
 		} catch (InputMismatchException e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
+			Menu.mainMenu(library, bookList);
 		}
 	}
 }

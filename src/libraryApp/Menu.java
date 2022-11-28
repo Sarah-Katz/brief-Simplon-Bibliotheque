@@ -1,7 +1,6 @@
 package libraryApp;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -14,8 +13,8 @@ import java.util.Scanner;
 public class Menu {
 
 	/**
-	 * Initializes the program and the book list
-	 * If the file exists it asks the user if they want to import it
+	 * Initializes the program and the book list If the file exists it asks the user
+	 * if they want to import it
 	 */
 	public static void startProgram() {
 		try {
@@ -42,7 +41,7 @@ public class Menu {
 			} else {
 				mainMenu(library, bookList);
 			}
-		} catch (IOException e) {
+		} catch (InputMismatchException e) {
 			System.out.println("Error in 'startProgram'");
 			e.printStackTrace();
 		}
@@ -93,9 +92,6 @@ public class Menu {
 			}
 		} catch (InputMismatchException e) {
 			System.out.println("/!\\ Merci de renseigner le chiffre de l'action souhaitée /!\\");
-			mainMenu(library, bookList);
-		} catch (IOException e) {
-			System.out.println("oops");
 			e.printStackTrace();
 			mainMenu(library, bookList);
 		}

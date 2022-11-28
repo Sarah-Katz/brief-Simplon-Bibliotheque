@@ -1,5 +1,9 @@
 package libraryApp;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -227,7 +231,7 @@ public class BookManager {
 				System.out.println("entrée invalide");
 				searchBookByTitle(library, bookList, bookOfSearchedAuthor);
 			}
-			System.out.println("Renseignez le titre du livre à modifier :");
+			System.out.println("Renseignez le titre du livre :");
 			String searchTitle = in.nextLine();
 			searchTitle.toLowerCase();
 			for (Book book : bookOfSearchedAuthor) {
@@ -366,8 +370,13 @@ public class BookManager {
 					String userResponse = in.nextLine();
 					switch (userResponse) {
 					case "o":
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						LocalDateTime date = LocalDateTime.now();
+						long endRentDateMilli = System.currentTimeMillis();
+						endRentDateMilli = endRentDateMilli + (rentDuration * 86400000);
+						LocalDateTime endRentDate = Instant.ofEpochMilli(endRentDateMilli).atZone(ZoneId.systemDefault()).toLocalDateTime();
 						book.setRented(true);
-						System.out.println("votre réservation est bien confirmée");
+						System.out.println("Votre réservation est bien confirmée à partir du " + dtf.format(date) + " au " + dtf.format(endRentDate));
 						Menu.mainMenu(library, bookList);
 						break;
 					case "n":

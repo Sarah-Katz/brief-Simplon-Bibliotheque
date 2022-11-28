@@ -62,7 +62,7 @@ public class Menu {
 			System.out.println("|Bienvenue dans le menu de navigation, vous souhaitez : |");
 			System.out.println("|1 - Enregistrer un nouveau livre                       |");
 			System.out.println("|2 - Afficher la liste des livres                       |");
-			System.out.println("|3 - Rechercher ou modifier un livre                    |");
+			System.out.println("|3 - Rechercher, réserver ou modifier un livre          |");
 			System.out.println("|4 -                                                    |");
 			System.out.println("|5 -                                                    |");
 			System.out.println("|6 - Importer la liste des livres en CSV                |");

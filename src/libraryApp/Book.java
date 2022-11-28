@@ -13,6 +13,7 @@ public class Book {
 	private String genre;
 	private int pageNumber;
 	private int copies;
+	private boolean isRented;
 
 	/**
 	 * This constructor creates an instance of Book using parameters
@@ -23,12 +24,13 @@ public class Book {
 	 * @param pageNumber Number of pages in the book
 	 * @param copies     Number of copies of the book
 	 */
-	public Book(final String title, final String author, final String genre, final int pageNumber, final int copies) {
+	public Book(final String title, final String author, final String genre, final int pageNumber, final int copies, final boolean isRented) {
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
 		this.pageNumber = pageNumber;
 		this.copies = copies;
+		this.isRented = isRented;
 	}
 
 	/**
@@ -43,6 +45,12 @@ public class Book {
 		result.append("Genre : ").append(this.getGenre()).append("\n");
 		result.append("Nombre de pages : ").append(this.getPageNumber()).append("\n");
 		result.append("Nombre de copies : ").append(this.getCopies()).append("\n");
+		result.append("Disponible : ");
+		if (this.isRented() == true) {
+			result.append("non").append("\n");
+		} else {
+			result.append("oui").append("\n");
+		}
 		return result;
 	}
 
@@ -116,4 +124,19 @@ public class Book {
 		this.copies = copies;
 	}
 
+	/**
+	 * @return the rent status of the book
+	 */
+	public boolean isRented() {
+		return isRented;
+	}
+
+	/**
+	 * @param isRented to set if the book is rented (true) or not (false)
+	 */
+	public void setRented(boolean isRented) {
+		this.isRented = isRented;
+	}
+
+	
 }

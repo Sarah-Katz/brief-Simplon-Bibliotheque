@@ -1,7 +1,7 @@
 package libraryApp;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +43,7 @@ public class BookManager {
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("L'information demandée doit être un nombre");
-					
+
 				}
 
 				System.out.println("Le nombre de copies :");
@@ -54,10 +54,10 @@ public class BookManager {
 				result.append("Titre : ").append(title).append("\n").append("Auteur.ice : ").append(author).append("\n")
 						.append("Genre : ").append(genre).append("\n").append("Nombre de pages : ").append(pageNumber)
 						.append("\n").append("Nombre de copies : ").append(copies);
-				confirmNewBook(library, bookList, title, author, genre, pageNumber, copies, result, in);
+				confirmNewBook(library, bookList, title, author, genre, pageNumber, copies, result);
 			}
 
-		} catch (Exception e) {
+		} catch (InputMismatchException e) {
 			// TODO: handle exception
 		}
 	}
@@ -91,13 +91,13 @@ public class BookManager {
 						System.out.println(book.showBookInfos());
 					}
 					isFoundResult = true;
-					confirmSearchBook(library, bookList, in, isFoundResult, bookOfSearchedAuthor);
+					confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
 				} else {
-					confirmSearchBook(library, bookList, in, isFoundResult, bookOfSearchedAuthor);
+					confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
 				}
 			}
 
-		} catch (Exception e) {
+		} catch (InputMismatchException e) {
 			// TODO: handle exception
 		}
 	}
@@ -116,162 +116,261 @@ public class BookManager {
 
 	// confirmation menu for newBook()
 	private static void confirmNewBook(final Library library, final List<Book> bookList, final String title,
-			final String author, final String genre, final int pageNumber, final int copies, final StringBuilder result,
-			final Scanner in) {
-		System.out.println(result);
-		System.out.println("Confirmez vous les informations renseignéees ? (Oui : o / Non : n)");
-		String confirm = in.next();
-		confirm.toLowerCase();
-		switch (confirm) {
-		case "o":
-			Book book = new Book(title, author, genre, pageNumber, copies);
-			bookList.add(book);
-			System.out.println("Votre livre à bien été enregistré.");
-			Menu.mainMenu(library, bookList);
-			break;
-		case "n":
-			newBook(library, bookList);
-			break;
-		default:
-			System.out.println("entrée invalide");
-			confirmNewBook(library, bookList, title, author, genre, pageNumber, copies, result, in);
-		}
-	}
-
-	// confirmation menu for searchBook()
-	private static void confirmSearchBook(final Library library, final List<Book> bookList, final Scanner in,
-			final boolean isFoundResult, final List<Book> bookOfSearchedAuthor) {
-		if (isFoundResult == true) {
-			System.out.println("Souhaitez-vous modifier les informations d'un livre ? Oui : o / Non : n");
-			String userSearchChoice = in.next();
-			switch (userSearchChoice) {
+			final String author, final String genre, final int pageNumber, final int copies,
+			final StringBuilder result) {
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.println(result);
+			System.out.println("Confirmez vous les informations renseignéees ? (Oui : o / Non : n)");
+			String confirm = in.next();
+			confirm.toLowerCase();
+			switch (confirm) {
 			case "o":
-				searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+				boolean isRented = false;
+				Book book = new Book(title, author, genre, pageNumber, copies, isRented);
+				bookList.add(book);
+				System.out.println("Votre livre à bien été enregistré.");
+				Menu.mainMenu(library, bookList);
 				break;
 			case "n":
-				System.out.println("Souhaitez-vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
-				String userChoice = in.next();
-				switch (userChoice) {
-				case "o":
-					searchBook(library, bookList);
-					break;
-				case "n":
-					Menu.mainMenu(library, bookList);
-					break;
-				default:
-					confirmSearchBook(library, bookList, in, isFoundResult, bookOfSearchedAuthor);
-				}
+				newBook(library, bookList);
 				break;
 			default:
 				System.out.println("entrée invalide");
-				confirmSearchBook(library, bookList, in, isFoundResult, bookOfSearchedAuthor);
+				confirmNewBook(library, bookList, title, author, genre, pageNumber, copies, result);
 			}
+		} catch (InputMismatchException e) {
+			// TODO: handle exception
+		}
 
-		} else {
-			System.out.println(
-					"Aucun livres de cet.te auteur.ice n'est présent, souhaitez vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
+	}
+
+	// confirmation menu for searchBook()
+	private static void confirmSearchBook(final Library library, final List<Book> bookList, final boolean isFoundResult,
+			final List<Book> bookOfSearchedAuthor) {
+		try {
+			Scanner in = new Scanner(System.in);
+			if (isFoundResult == true) {
+				System.out
+						.println("Souhaitez-vous reserver ou modifier les informations d'un livre ? Oui : o / Non : n");
+				String userSearchChoice = in.next();
+				switch (userSearchChoice) {
+				case "o":
+					searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+					break;
+				case "n":
+					System.out.println("Souhaitez-vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
+					String userChoice = in.next();
+					switch (userChoice) {
+					case "o":
+						searchBook(library, bookList);
+						break;
+					case "n":
+						Menu.mainMenu(library, bookList);
+						break;
+					default:
+						confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
+					}
+					break;
+				default:
+					System.out.println("entrée invalide");
+					confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
+				}
+
+			} else {
+				System.out.println(
+						"Aucun livres de cet.te auteur.ice n'est présent, souhaitez vous effectuer une nouvelle recherche ? (Oui : o / Non : n)");
+			}
+			String userChoice = in.next();
+			switch (userChoice) {
+			case "o":
+				searchBook(library, bookList);
+				break;
+			case "n":
+				Menu.mainMenu(library, bookList);
+				break;
+			default:
+				System.out.println("entrée invalide");
+				confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
+			}
+		} catch (InputMismatchException e) {
+			// TODO: handle exception
 		}
-		String userChoice = in.next();
-		switch (userChoice) {
-		case "o":
-			searchBook(library, bookList);
-			break;
-		case "n":
-			Menu.mainMenu(library, bookList);
-			break;
-		default:
-			System.out.println("entrée invalide");
-			confirmSearchBook(library, bookList, in, isFoundResult, bookOfSearchedAuthor);
-		}
+
 	}
 
 	// search menu for book modifying
 	private static void searchBookByTitle(final Library library, final List<Book> bookList,
 			final List<Book> bookOfSearchedAuthor) {
-		Scanner in = new Scanner(System.in);
-		System.out.println("Renseignez le titre du livre à modifier :");
-		String searchTitle = in.nextLine();
-		searchTitle.toLowerCase();
-		for (Book book : bookOfSearchedAuthor) {
-			if (searchTitle.equalsIgnoreCase(book.getTitle())) {
-				System.out.println("Vous avez selectionné" + " " + book.getTitle());
-				System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
-				String userResponse = in.next();
-				switch (userResponse) {
-				case "o":
-					Book selectedBook = book;
-					bookModifier(library, bookList, selectedBook);
-					break;
-				case "n":
-					searchBookByTitle(library, bookList, bookOfSearchedAuthor);
-					break;
-				default:
-					System.out.println("entrée invalide");
-					searchBookByTitle(library, bookList, bookOfSearchedAuthor);
-				}
-			} else {
-				System.out.println("Aucun titre corespondant, merci de choisir dans cette liste :");
-				for (Book books : bookOfSearchedAuthor) {
-					System.out.println(books.showBookInfos());
-				}
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.println(
+					"Souhaitez vous réserver ou modifer les informations d'un livre la location d'un livre ? (Reserver : r / Modifier : m)");
+			String userChoice = in.nextLine();
+			boolean rent = false;
+			switch (userChoice) {
+			case "m":
+				rent = false;
+				break;
+			case "r":
+				rent = true;
+				break;
+			default:
+				System.out.println("entrée invalide");
 				searchBookByTitle(library, bookList, bookOfSearchedAuthor);
 			}
+			System.out.println("Renseignez le titre du livre à modifier :");
+			String searchTitle = in.nextLine();
+			searchTitle.toLowerCase();
+			for (Book book : bookOfSearchedAuthor) {
+				if (rent == false && searchTitle.equalsIgnoreCase(book.getTitle())) {
+					System.out.println("Vous avez selectionné" + " " + book.getTitle());
+					System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
+					String userResponse = in.next();
+					switch (userResponse) {
+					case "o":
+						Book selectedBook = book;
+						bookModifier(library, bookList, selectedBook);
+						break;
+					case "n":
+						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+						break;
+					default:
+						System.out.println("entrée invalide");
+						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+					}
+				} else if (rent == true && searchTitle.equalsIgnoreCase(book.getTitle())) {
+					System.out.println("Vous avez selectionné" + " " + book.getTitle());
+					System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
+					String userResponse = in.next();
+					switch (userResponse) {
+					case "o":
+						Book selectedBook = book;
+						bookRenter(library, bookList, selectedBook);
+						break;
+					case "n":
+						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+						break;
+					default:
+						System.out.println("entrée invalide");
+						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+					}
+				} else {
+					System.out.println("Aucun titre corespondant, merci de choisir dans cette liste :");
+					for (Book books : bookOfSearchedAuthor) {
+						System.out.println(books.showBookInfos());
+					}
+					searchBookByTitle(library, bookList, bookOfSearchedAuthor);
+				}
+			}
+		} catch (InputMismatchException e) {
+			// TODO: handle exception
 		}
+
 	}
 
 	// menu for book modifying
 	private static void bookModifier(final Library library, final List<Book> bookList, final Book book) {
-		Scanner in = new Scanner(System.in);
-		System.out.println("______________________________");
-		System.out.println("|                            |");
-		System.out.println("|Vous souhaitez modifier :   |");
-		System.out.println("|1 - le titre                |");
-		System.out.println("|2 - l'auteur.ice            |");
-		System.out.println("|3 - le genre                |");
-		System.out.println("|4 - le nombre de pages      |");
-		System.out.println("|5 - le nombre de copies     |");
-		System.out.println("|6 - Retour au menu principal|");
-		System.out.println("|____________________________|");
-		int userChoice = in.nextInt();
-		in.nextLine(); // Consume newline left-over to workaround a bug found at
-						// https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
-		switch (userChoice) {
-		case 1:
-			System.out.println("Inserez le nouveau titre :");
-			String newTitle = in.nextLine();
-			book.setTitle(newTitle);
-			break;
-		case 2:
-			System.out.println("Inserez le/a nouveau/elle auteur.ice :");
-			String newAuthor = in.nextLine();
-			book.setAuthor(newAuthor);
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.println("______________________________");
+			System.out.println("|                            |");
+			System.out.println("|Vous souhaitez modifier :   |");
+			System.out.println("|1 - le titre                |");
+			System.out.println("|2 - l'auteur.ice            |");
+			System.out.println("|3 - le genre                |");
+			System.out.println("|4 - le nombre de pages      |");
+			System.out.println("|5 - le nombre de copies     |");
+			System.out.println("|6 - Retour au menu principal|");
+			System.out.println("|____________________________|");
+			int userChoice = in.nextInt();
+			in.nextLine(); // Consume newline left-over to workaround a bug found at
+							// https://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline-after-using-next-or-nextfoo
+			switch (userChoice) {
+			case 1:
+				System.out.println("Inserez le nouveau titre :");
+				String newTitle = in.nextLine();
+				book.setTitle(newTitle);
+				break;
+			case 2:
+				System.out.println("Inserez le/a nouveau/elle auteur.ice :");
+				String newAuthor = in.nextLine();
+				book.setAuthor(newAuthor);
+				bookModifier(library, bookList, book);
+				break;
+			case 3:
+				System.out.println("Inserez le nouveau genre :");
+				String newGenre = in.nextLine();
+				book.setGenre(newGenre);
+				bookModifier(library, bookList, book);
+				break;
+			case 4:
+				System.out.println("Inserez le nouveau nombre de pages :");
+				int newPageNumber = in.nextInt();
+				book.setPageNumber(newPageNumber);
+				bookModifier(library, bookList, book);
+				break;
+			case 5:
+				System.out.println("Inserez le nouveau nombre de copies :");
+				int newCopies = in.nextInt();
+				book.setCopies(newCopies);
+				bookModifier(library, bookList, book);
+				break;
+			case 6:
+				Menu.mainMenu(library, bookList);
+				break;
+			default:
+				System.out.println("entrée invalide");
+				bookModifier(library, bookList, book);
+			}
 			bookModifier(library, bookList, book);
-			break;
-		case 3:
-			System.out.println("Inserez le nouveau genre :");
-			String newGenre = in.nextLine();
-			book.setGenre(newGenre);
-			bookModifier(library, bookList, book);
-			break;
-		case 4:
-			System.out.println("Inserez le nouveau nombre de pages :");
-			int newPageNumber = in.nextInt();
-			book.setPageNumber(newPageNumber);
-			bookModifier(library, bookList, book);
-			break;
-		case 5:
-			System.out.println("Inserez le nouveau nombre de copies :");
-			int newCopies = in.nextInt();
-			book.setCopies(newCopies);
-			bookModifier(library, bookList, book);
-			break;
-		case 6:
-			Menu.mainMenu(library, bookList);
-			break;
-		default:
-			System.out.println("entrée invalide");
-			bookModifier(library, bookList, book);
+		} catch (InputMismatchException e) {
+			// TODO: handle exception
 		}
-		bookModifier(library, bookList, book);
+
+	}
+
+	// menu for book renting
+	private static void bookRenter(final Library library, final List<Book> bookList, final Book book) {
+		try {
+			if (book.isRented() == true) {
+				System.out.println("Désolé, le livre que vous souhaitez reserver est indisponible pour l'instant");
+				Menu.mainMenu(library, bookList);
+			} else {
+				Scanner in = new Scanner(System.in);
+				StringBuilder selected = new StringBuilder();
+				selected.append("Vous avez selectionné : ").append(book.getTitle()).append(" de : ")
+						.append(book.getAuthor());
+				System.out.println(selected);
+				System.out.println(
+						"Confirmez la durée sur laquelle vous souhaitez réserver le livre en jours (max : 30)");
+				int rentDuration = in.nextInt();
+				in.nextLine(); // consuming leftover "\n"
+				if (rentDuration > 0 && rentDuration <= 30) {
+					StringBuilder confirmRent = new StringBuilder();
+					confirmRent.append("Confirmez vous vouloir réserver : ").append(book.getTitle()).append(" pour ")
+							.append(rentDuration).append(" jours ? (Oui : o / Non :n)");
+					System.out.println(confirmRent);
+					String userResponse = in.nextLine();
+					switch (userResponse) {
+					case "o":
+						book.setRented(true);
+						System.out.println("votre réservation est bien confirmée");
+						Menu.mainMenu(library, bookList);
+						break;
+					case "n":
+						Menu.mainMenu(library, bookList);
+						break;
+					default:
+						System.out.println("entrée invalide");
+						bookRenter(library, bookList, book);
+					}
+				} else {
+					bookRenter(library, bookList, book);
+				}
+			}
+		} catch (InputMismatchException e) {
+			// TODO: handle exception
+		}
 	}
 }

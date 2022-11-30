@@ -134,8 +134,7 @@ public class BookManager {
 			confirm.toLowerCase();
 			switch (confirm) {
 			case "o":
-				boolean isRented = false;
-				Book book = new Book(title, author, genre, pageNumber, copies, isRented);
+				Book book = new Book(title, author, genre, pageNumber, copies);
 				bookList.add(book);
 				System.out.println("Votre livre à bien été enregistré.");
 				Menu.mainMenu(library, bookList);
@@ -162,7 +161,7 @@ public class BookManager {
 			Scanner in = new Scanner(System.in);
 			if (isFoundResult == true) {
 				System.out
-						.println("Souhaitez-vous reserver ou modifier les informations d'un livre ? Oui : o / Non : n");
+						.println("Souhaitez-vous reserver un livre ou modifier ses informations ? (Oui : o / Non : n)");
 				String userSearchChoice = in.next();
 				switch (userSearchChoice) {
 				case "o":
@@ -211,13 +210,13 @@ public class BookManager {
 
 	}
 
-	// search menu for book modifying
+	// search menu for book searching by title
 	private static void searchBookByTitle(final Library library, final List<Book> bookList,
 			final List<Book> bookOfSearchedAuthor) {
 		try {
 			Scanner in = new Scanner(System.in);
 			System.out.println(
-					"Souhaitez vous réserver ou modifer les informations d'un livre la location d'un livre ? (Reserver : r / Modifier : m)");
+					"Souhaitez vous réserver la location d'un livre ou modifer ses informations ? (Reserver : r / Modifier : m)");
 			String userChoice = in.nextLine();
 			boolean rent = false;
 			switch (userChoice) {
@@ -349,7 +348,7 @@ public class BookManager {
 	// menu for book renting
 	private static void bookRenter(final Library library, final List<Book> bookList, final Book book) {
 		try {
-			if (book.isRented() == true) {
+			if (book.getCopies() < 0) {
 				System.out.println("Désolé, le livre que vous souhaitez reserver est indisponible pour l'instant");
 				Menu.mainMenu(library, bookList);
 			} else {
@@ -375,7 +374,7 @@ public class BookManager {
 						long endRentDateMilli = System.currentTimeMillis();
 						endRentDateMilli = endRentDateMilli + (rentDuration * 86400000);
 						LocalDateTime endRentDate = Instant.ofEpochMilli(endRentDateMilli).atZone(ZoneId.systemDefault()).toLocalDateTime();
-						book.setRented(true);
+						book.setCopies(book.getCopies() - 1);						
 						System.out.println("Votre réservation est bien confirmée à partir du " + dtf.format(date) + " au " + dtf.format(endRentDate));
 						Menu.mainMenu(library, bookList);
 						break;

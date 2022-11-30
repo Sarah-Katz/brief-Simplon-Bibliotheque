@@ -62,10 +62,10 @@ public class Menu {
 			System.out.println("|1 - Enregistrer un nouveau livre                       |");
 			System.out.println("|2 - Afficher la liste des livres                       |");
 			System.out.println("|3 - Rechercher, réserver ou modifier un livre          |");
-			System.out.println("|4 -                                                    |");
-			System.out.println("|5 -                                                    |");
-			System.out.println("|6 - Importer la liste des livres en CSV                |");
-			System.out.println("|7 - Exporter la liste des livres en CSV                |");
+			System.out.println("|5 - Importer la liste des livres en CSV                |");
+			System.out.println("|6 - Exporter la liste des livres en CSV                |");
+			System.out.println("|-------------------------------------------------------|");
+			System.out.println("|7 - Fermer le programme                                |");
 			System.out.println("|_______________________________________________________|");
 
 			int userChoice = in.nextInt();
@@ -80,11 +80,16 @@ public class Menu {
 			case 3:
 				BookManager.searchBook(library, bookList);
 				break;
-			case 6:
+			case 4:
+				//TODO : Methode rendu livre
+				break;
+			case 5:
 				CSVManager.importCSV(library, bookList);
 				break;
-			case 7:
+			case 6:
 				CSVManager.exportCSV(library, bookList);
+				break;
+			case 7:
 				break;
 			default:
 				System.out.println("/!\\ Merci de renseigner le chiffre de l'action souhaitée /!\\");

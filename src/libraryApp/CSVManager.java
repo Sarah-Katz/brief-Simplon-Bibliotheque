@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class CSVManager {
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
-	private static final String HEADER = "Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies,Est loué ?";
+	private static final String HEADER = "Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies";
 
 	/**
 	 * This method exports the list of books in the Library in a .csv file
@@ -38,18 +38,11 @@ public class CSVManager {
 				String pageNumberString = Integer.toString(pageNumber);
 				int copies = b.getCopies();
 				String copiesString = Integer.toString(copies);
-				String rented;
-				if (b.isRented() == true) {
-					rented = "true";
-				} else {
-					rented = "false";
-				}
 				bookListCSV.append(b.getTitle()).append(DELIMITER);
 				bookListCSV.append(b.getAuthor()).append(DELIMITER);
 				bookListCSV.append(b.getGenre()).append(DELIMITER);
 				bookListCSV.append(pageNumberString).append(DELIMITER);
-				bookListCSV.append(copiesString).append(DELIMITER);
-				bookListCSV.append(rented).append(SEPARATOR);
+				bookListCSV.append(copiesString).append(SEPARATOR);
 			}
 			Scanner in = new Scanner(System.in);
 			System.out.println("Confirmez vous vouloir exporter la liste ? (Oui : o / Non : n)");
@@ -99,18 +92,12 @@ public class CSVManager {
 				String genre = bookInfo[2];
 				String pageNumberA = bookInfo[3];
 				String copiesA = bookInfo[4];
-				boolean isRented;
-				if ("true".equalsIgnoreCase(bookInfo[5])) {
-					isRented = true;
-				} else {
-					isRented = false;
-				}
 				Integer pageNumber = Integer.valueOf(pageNumberA);
 				Integer copies = Integer.valueOf(copiesA);
-				Book book = new Book(title, author, genre, pageNumber, copies, isRented);
-				System.out.println("Liste importée !");
+				Book book = new Book(title, author, genre, pageNumber, copies);
 				newBookList.add(book);
 			}
+			System.out.println("Liste importée !");
 			Menu.mainMenu(library, newBookList);
 		} catch (IOException e) {
 			System.out.println("_________________________________");

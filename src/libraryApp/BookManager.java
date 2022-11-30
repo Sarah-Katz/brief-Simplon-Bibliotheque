@@ -216,14 +216,14 @@ public class BookManager {
 		try {
 			Scanner in = new Scanner(System.in);
 			System.out.println(
-					"Souhaitez vous réserver la location d'un livre ou modifer ses informations ? (Reserver : r / Modifier : m)");
+					"Souhaitez vous gerer la location d'un livre ou modifer ses informations ? (louer/rendre : l / Modifier : m)");
 			String userChoice = in.nextLine();
 			boolean rent = false;
 			switch (userChoice) {
 			case "m":
 				rent = false;
 				break;
-			case "r":
+			case "l":
 				rent = true;
 				break;
 			default:
@@ -236,36 +236,12 @@ public class BookManager {
 			for (Book book : bookOfSearchedAuthor) {
 				if (rent == false && searchTitle.equalsIgnoreCase(book.getTitle())) {
 					System.out.println("Vous avez selectionné" + " " + book.getTitle());
-					System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
-					String userResponse = in.next();
-					switch (userResponse) {
-					case "o":
-						Book selectedBook = book;
-						bookModifier(library, bookList, selectedBook);
-						break;
-					case "n":
-						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
-						break;
-					default:
-						System.out.println("entrée invalide");
-						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
-					}
+					Book selectedBook = book;
+					bookModifier(library, bookList, selectedBook);
 				} else if (rent == true && searchTitle.equalsIgnoreCase(book.getTitle())) {
 					System.out.println("Vous avez selectionné" + " " + book.getTitle());
-					System.out.println("Confirmez vous la selection ? (Oui : o / Non : n)");
-					String userResponse = in.next();
-					switch (userResponse) {
-					case "o":
-						Book selectedBook = book;
-						bookRenter(library, bookList, selectedBook);
-						break;
-					case "n":
-						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
-						break;
-					default:
-						System.out.println("entrée invalide");
-						searchBookByTitle(library, bookList, bookOfSearchedAuthor);
-					}
+					Book selectedBook = book;
+					userRentChoice(library, bookList, selectedBook);
 				} else {
 					System.out.println("Aucun titre corespondant, merci de choisir dans cette liste :");
 					for (Book books : bookOfSearchedAuthor) {
@@ -278,6 +254,28 @@ public class BookManager {
 			e.printStackTrace();
 			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
 			Menu.mainMenu(library, bookList);
+		}
+
+	}
+
+	private static void userRentChoice(final Library library, final List<Book> bookList, final Book selectedBook) {
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.println("Souhaitez-vous louer ou rendre un livre ? (Louer : l / Rendre : r)");
+			String userRentchoice = in.nextLine();
+			switch (userRentchoice) {
+			case "l":
+				bookRenter(library, bookList, selectedBook);
+				break;
+			case "r":
+				bookTurnIn(library, bookList, selectedBook);
+				break;
+			default:
+				userRentChoice(library, bookList, selectedBook);
+				break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
 	}
@@ -348,8 +346,8 @@ public class BookManager {
 	// menu for book renting
 	private static void bookRenter(final Library library, final List<Book> bookList, final Book book) {
 		try {
-			if (book.getCopies() < 0) {
-				System.out.println("Désolé, le livre que vous souhaitez reserver est indisponible pour l'instant");
+			if (book.getCopies() <= 0) {
+				System.out.println("Désolé, le livre que vous souhaitez réserver est indisponible pour l'instant");
 				Menu.mainMenu(library, bookList);
 			} else {
 				Scanner in = new Scanner(System.in);
@@ -373,9 +371,11 @@ public class BookManager {
 						LocalDateTime date = LocalDateTime.now();
 						long endRentDateMilli = System.currentTimeMillis();
 						endRentDateMilli = endRentDateMilli + (rentDuration * 86400000);
-						LocalDateTime endRentDate = Instant.ofEpochMilli(endRentDateMilli).atZone(ZoneId.systemDefault()).toLocalDateTime();
-						book.setCopies(book.getCopies() - 1);						
-						System.out.println("Votre réservation est bien confirmée à partir du " + dtf.format(date) + " au " + dtf.format(endRentDate));
+						LocalDateTime endRentDate = Instant.ofEpochMilli(endRentDateMilli)
+								.atZone(ZoneId.systemDefault()).toLocalDateTime();
+						book.setCopies(book.getCopies() - 1);
+						System.out.println("Votre réservation est bien confirmée à partir du " + dtf.format(date)
+								+ " au " + dtf.format(endRentDate));
 						Menu.mainMenu(library, bookList);
 						break;
 					case "n":
@@ -394,5 +394,12 @@ public class BookManager {
 			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
 			Menu.mainMenu(library, bookList);
 		}
+	}
+
+	// Menu for turning back books
+	private static void bookTurnIn(final Library library, final List<Book> bookList, final Book book) {
+		book.setCopies(book.getCopies() + 1);
+		System.out.println("Le livre à bien été rendu !");
+		Menu.mainMenu(library, bookList);
 	}
 }

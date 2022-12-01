@@ -44,15 +44,14 @@ public class BookManager {
 				try {
 					System.out.println("Le nombre de page :");
 					pageNumber = in.nextInt();
-				} catch (Exception e) {
-					e.printStackTrace();
-					System.out.println("L'information demandée doit être un nombre");
-
+					System.out.println("Le nombre de copies :");
+					copies = in.nextInt();
+				} catch (InputMismatchException e) {
+					System.out.println("____________________________________________");
+					System.out.println("|L'information demandée doit être un nombre|");
+					System.out.println("|__________________________________________|");
+					newBook(library, bookList);
 				}
-
-				System.out.println("Le nombre de copies :");
-				copies = in.nextInt();
-
 				System.out.println("Veuillez confirmer les informations renseignées");
 				StringBuilder result = new StringBuilder();
 				result.append("Titre : ").append(title).append("\n").append("Auteur.ice : ").append(author).append("\n")
@@ -62,9 +61,10 @@ public class BookManager {
 			}
 
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			newBook(library, bookList);
 		}
 	}
 
@@ -78,6 +78,7 @@ public class BookManager {
 			List<Book> bookOfSearchedAuthor = new ArrayList<Book>();
 			Scanner in = new Scanner(System.in);
 			System.out.println("Retour menu : 'm'");
+			System.out.println("");
 			System.out.println("Veuillez entrer le nom de l'auteur.ice du livre recherché :");
 			String searchedAuthor = in.nextLine();
 			searchedAuthor.toLowerCase();
@@ -92,7 +93,9 @@ public class BookManager {
 					}
 				}
 				if (bookOfSearchedAuthor.size() > 0) {
+					System.out.println("");
 					System.out.println("Voici les livres de cet.te auteur.ice :");
+					System.out.println("");
 					for (Book book : bookOfSearchedAuthor) {
 						System.out.println(book.showBookInfos());
 					}
@@ -102,11 +105,11 @@ public class BookManager {
 					confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
 				}
 			}
-
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			searchBook(library, bookList);
 		}
 	}
 
@@ -134,7 +137,7 @@ public class BookManager {
 			confirm.toLowerCase();
 			switch (confirm) {
 			case "o":
-				Book book = new Book(title, author, genre, pageNumber, copies);
+				Book book = new Book(bookList, title, author, genre, pageNumber, copies);
 				bookList.add(book);
 				System.out.println("Votre livre à bien été enregistré.");
 				Menu.mainMenu(library, bookList);
@@ -147,11 +150,11 @@ public class BookManager {
 				confirmNewBook(library, bookList, title, author, genre, pageNumber, copies, result);
 			}
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			showBookList(library, bookList);
 		}
-
 	}
 
 	// confirmation menu for searchBook()
@@ -203,11 +206,11 @@ public class BookManager {
 				confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
 			}
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			confirmSearchBook(library, bookList, isFoundResult, bookOfSearchedAuthor);
 		}
-
 	}
 
 	// search menu for book searching by title
@@ -251,11 +254,11 @@ public class BookManager {
 				}
 			}
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			searchBookByTitle(library, bookList, bookOfSearchedAuthor);
 		}
-
 	}
 
 	private static void userRentChoice(final Library library, final List<Book> bookList, final Book selectedBook) {
@@ -274,10 +277,12 @@ public class BookManager {
 				userRentChoice(library, bookList, selectedBook);
 				break;
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (InputMismatchException e) {
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			userRentChoice(library, bookList, selectedBook);
 		}
-
 	}
 
 	// menu for book modifying
@@ -336,11 +341,11 @@ public class BookManager {
 			}
 			bookModifier(library, bookList, book);
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			bookModifier(library, bookList, book);
 		}
-
 	}
 
 	// menu for book renting
@@ -355,6 +360,7 @@ public class BookManager {
 				selected.append("Vous avez selectionné : ").append(book.getTitle()).append(" de : ")
 						.append(book.getAuthor());
 				System.out.println(selected);
+				System.out.println("");
 				System.out.println(
 						"Confirmez la durée sur laquelle vous souhaitez réserver le livre en jours (max : 30)");
 				int rentDuration = in.nextInt();
@@ -374,8 +380,14 @@ public class BookManager {
 						LocalDateTime endRentDate = Instant.ofEpochMilli(endRentDateMilli)
 								.atZone(ZoneId.systemDefault()).toLocalDateTime();
 						book.setCopies(book.getCopies() - 1);
-						System.out.println("Votre réservation est bien confirmée à partir du " + dtf.format(date)
-								+ " au " + dtf.format(endRentDate));
+						StringBuilder result = new StringBuilder();
+						result.append("|Votre réservation est bien confirmée à partir du ").append(dtf.format(date))
+								.append(" au ").append(dtf.format(endRentDate)).append("|");
+						System.out
+								.println("___________________________________________________________________________");
+						System.out.println(result);
+						System.out
+								.println("|_________________________________________________________________________|");
 						Menu.mainMenu(library, bookList);
 						break;
 					case "n":
@@ -390,16 +402,19 @@ public class BookManager {
 				}
 			}
 		} catch (InputMismatchException e) {
-			e.printStackTrace();
-			System.out.println("Une erreur relative à l'entrée utilisateur s'est produite");
-			Menu.mainMenu(library, bookList);
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			bookRenter(library, bookList, book);
 		}
 	}
 
 	// Menu for turning back books
 	private static void bookTurnIn(final Library library, final List<Book> bookList, final Book book) {
 		book.setCopies(book.getCopies() + 1);
-		System.out.println("Le livre à bien été rendu !");
+		System.out.println("_____________________________");
+		System.out.println("|Le livre à bien été rendu !|");
+		System.out.println("|___________________________|");
 		Menu.mainMenu(library, bookList);
 	}
 }

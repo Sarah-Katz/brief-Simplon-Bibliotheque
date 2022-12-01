@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -56,16 +57,24 @@ public class CSVManager {
 				Menu.mainMenu(library, bookList);
 				break;
 			case "n":
-				bookListCSV = null;
+				bookListCSV.close();
 				Menu.mainMenu(library, bookList);
 			default:
-				bookListCSV = null;
+				bookListCSV.close();
 				System.out.println("entrée invalide");
 				exportCSV(library, bookList);
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (InputMismatchException e) {
+			System.out.println("___________________________________________________________");
+			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
+			System.out.println("|_________________________________________________________|");
+			exportCSV(library, bookList);
+		} catch (IOException e) {
+			System.out.println("__________________________________________________________");
+			System.out.println("|Une erreur relative à l'export du fichier s'est produite|");
+			System.out.println("|________________________________________________________|");
+			Menu.mainMenu(library, bookList);
 		}
 	}
 
@@ -94,7 +103,7 @@ public class CSVManager {
 				String copiesA = bookInfo[4];
 				Integer pageNumber = Integer.valueOf(pageNumberA);
 				Integer copies = Integer.valueOf(copiesA);
-				Book book = new Book(title, author, genre, pageNumber, copies);
+				Book book = new Book(bookList, title, author, genre, pageNumber, copies);
 				newBookList.add(book);
 			}
 			System.out.println("Liste importée !");

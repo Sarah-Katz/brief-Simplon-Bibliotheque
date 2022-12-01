@@ -1,5 +1,7 @@
 package libraryApp;
 
+import java.util.List;
+
 /**
  * This class represents a book and it's informations : Title, Author, Genre,
  * Number of pages and Number of copies.
@@ -7,16 +9,17 @@ package libraryApp;
  * @author Sarah Katz
  *
  */
-public class Book {
+public class Book extends Library {
 	private String title;
 	private String author;
 	private String genre;
 	private int pageNumber;
 	private int copies;
-
+	
 	/**
 	 * This constructor creates an instance of Book using parameters
 	 * 
+	 * @param bookList   the list containing books to be used in Library class
 	 * @param title      Book title
 	 * @param author     Book author
 	 * @param genre      Book genre
@@ -24,7 +27,8 @@ public class Book {
 	 * @param copies     Number of copies of the book
 	 * @param isRented   The book's availability
 	 */
-	public Book(final String title, final String author, final String genre, final int pageNumber, final int copies) {
+	public Book(final List<Book> bookList, final String title, final String author, final String genre, final int pageNumber, final int copies) {
+		super(bookList);
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
@@ -115,6 +119,5 @@ public class Book {
 	 */
 	public void setCopies(final int copies) {
 		this.copies = copies;
-	}
-	
+	}	
 }

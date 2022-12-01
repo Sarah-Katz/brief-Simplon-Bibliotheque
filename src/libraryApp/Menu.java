@@ -51,6 +51,7 @@ public class Menu {
 	 * This method calls the main menu to be displayed and let's user decide what
 	 * they want to do using numbers for action selection through a switch
 	 * 
+	 * @param library
 	 * @param bookList
 	 */
 	protected static void mainMenu(final Library library, final List<Book> bookList) {
@@ -67,9 +68,7 @@ public class Menu {
 			System.out.println("|-------------------------------------------------------|");
 			System.out.println("|6 - Fermer le programme                                |");
 			System.out.println("|_______________________________________________________|");
-
 			int userChoice = in.nextInt();
-
 			switch (userChoice) {
 			case 1:
 				BookManager.newBook(library, bookList);
@@ -87,6 +86,7 @@ public class Menu {
 				CSVManager.exportCSV(library, bookList);
 				break;
 			case 6:
+				System.exit(0);
 				break;
 			default:
 				System.out.println("/!\\ Merci de renseigner le chiffre de l'action souhaitée /!\\");
@@ -94,7 +94,6 @@ public class Menu {
 			}
 		} catch (InputMismatchException e) {
 			System.out.println("/!\\ Merci de renseigner le chiffre de l'action souhaitée /!\\");
-			e.printStackTrace();
 			mainMenu(library, bookList);
 		}
 	}

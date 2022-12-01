@@ -1,11 +1,11 @@
-/**
- * 
- */
+
 package libraryApp;
 
 import java.util.List;
 
 /**
+ * This class represents a library and contains the list of all it's books
+ * 
  * @author Sarah Katz
  *
  */

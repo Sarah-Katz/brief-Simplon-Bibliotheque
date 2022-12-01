@@ -1,7 +1,7 @@
-Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies
-L'age d'or,Antoine,Thiller,5467,65
-le vent et l'eau,Amelie,Philosophie,435,0
-Pour l'amour de tous,Pierre-Emmanuel Emmanuel,Roman,407,4
-Albert 1er,Jean-Michel Montagné,Histoire,150,7
-L'histoire d'un homme,Jean-Michel doudoux,Educatif,3879,1
-Le grand livre des blagues,Thomas Lemay,Comédie,435,12
+Titre|Auteur.ice|Genre|Nombre de pages|Nombre de copies
+L'age d'or|Antoine|Thiller|5467|65a
+le vent et l'eau|Amelie|Philosophie|4a35|0
+Pour l'amour de tous|Pierre-Emmanuel Emmanuel|Roman|407|4
+Albert 1er|Jean-Michel Montagné|Histoire|150|7
+L'histoire d'un homme|Jean-Michel doudoux|Educatif|3879|1
+Le grand livre des blagues|Thomas Lemay|Comédie|435|12

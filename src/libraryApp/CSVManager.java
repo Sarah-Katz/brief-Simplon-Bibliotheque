@@ -17,7 +17,7 @@ import java.util.Scanner;
  *
  */
 public class CSVManager {
-	private static final String DELIMITER = ",";
+	private static final String DELIMITER = "\\|";
 	private static final String SEPARATOR = "\n";
 	private static final String HEADER = "Titre,Auteur.ice,Genre,Nombre de pages,Nombre de copies";
 
@@ -70,7 +70,7 @@ public class CSVManager {
 			System.out.println("|Une erreur relative à l'entrée utilisateur s'est produite|");
 			System.out.println("|_________________________________________________________|");
 			exportCSV(library, bookList);
-		} catch (IOException e) {
+		} catch (IOException e1) {
 			System.out.println("__________________________________________________________");
 			System.out.println("|Une erreur relative à l'export du fichier s'est produite|");
 			System.out.println("|________________________________________________________|");
@@ -95,14 +95,32 @@ public class CSVManager {
 							// characters in rows where Integers are wanted
 			while (in.hasNext()) {
 				String str = in.nextLine();
-				String[] bookInfo = str.split(",");
+				String[] bookInfo = str.split(DELIMITER);
 				String title = bookInfo[0];
 				String author = bookInfo[1];
 				String genre = bookInfo[2];
-				String pageNumberA = bookInfo[3];
-				String copiesA = bookInfo[4];
-				Integer pageNumber = Integer.valueOf(pageNumberA);
-				Integer copies = Integer.valueOf(copiesA);
+				String pageNumberString = bookInfo[3];
+				String copiesString = bookInfo[4];
+				Integer pageNumber;
+				Integer copies;
+				try {
+					pageNumber = Integer.valueOf(pageNumberString);
+				} catch (NumberFormatException errPages) {
+					pageNumber = 0;
+					StringBuilder error = new StringBuilder();
+					error.append("Erreur sur le livre : ").append(bookInfo[0]).append("\n")
+							.append("Nombre de page invalide, nouvelle entrée = 0");
+					System.out.println(error);
+				}
+				try {
+					copies = Integer.valueOf(copiesString);
+				} catch (NumberFormatException errCopies) {
+					copies = -1;
+					StringBuilder error = new StringBuilder();
+					error.append("Erreur sur le livre : ").append(bookInfo[0]).append("\n")
+							.append("Nombre d'exemplaires invalide, nouvelle entrée = -1");
+					System.out.println(error);
+				}
 				Book book = new Book(bookList, title, author, genre, pageNumber, copies);
 				newBookList.add(book);
 			}
@@ -120,5 +138,12 @@ public class CSVManager {
 			System.out.println("|______________________________________________________________________________|");
 			Menu.mainMenu(library, bookList);
 		}
+//		catch (NumberFormatException e) {
+//			System.out.println("___________________________________________________________________________________");
+//			System.out.println("|                                                                                 |");
+//			System.out.println("|Une erreur existe dans le fichier, veuillez verifier ses données et son formatage|");
+//			System.out.println("|_________________________________________________________________________________|");
+//			Menu.mainMenu(library, bookList);
+//		}
 	}
 }

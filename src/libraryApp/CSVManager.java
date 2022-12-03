@@ -127,10 +127,10 @@ public class CSVManager {
 			System.out.println("Liste importée !");
 			Menu.mainMenu(library, newBookList);
 		} catch (IOException e) {
-			System.out.println("_________________________________");
-			System.out.println("|                               |");
-			System.out.println("| /!\\  Fichier innexistant /!\\  |");
-			System.out.println("|_______________________________|");
+			System.out.println("________________________________");
+			System.out.println("|                              |");
+			System.out.println("| /!\\  Fichier inexistant /!\\  |");
+			System.out.println("|______________________________|");
 			System.out.println("________________________________________________________________________________");
 			System.out.println("|                                                                              |");
 			System.out.println("|Pour importer un fichier, déplacez-le à la racine du programme et nommez-le : |");
@@ -138,12 +138,12 @@ public class CSVManager {
 			System.out.println("|______________________________________________________________________________|");
 			Menu.mainMenu(library, bookList);
 		}
-//		catch (NumberFormatException e) {
-//			System.out.println("___________________________________________________________________________________");
-//			System.out.println("|                                                                                 |");
-//			System.out.println("|Une erreur existe dans le fichier, veuillez verifier ses données et son formatage|");
-//			System.out.println("|_________________________________________________________________________________|");
-//			Menu.mainMenu(library, bookList);
-//		}
+		catch (NumberFormatException e) {
+			System.out.println("___________________________________________________________________________________");
+			System.out.println("|                                                                                 |");
+			System.out.println("|Une erreur existe dans le fichier, veuillez verifier ses données et son formatage|");
+			System.out.println("|_________________________________________________________________________________|");
+			Menu.mainMenu(library, bookList);
+		}
 	}
 }

@@ -5,14 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * This class contains methods used to export and import CSV files containing
  * informations on the book list
- * 
+ *
  * @author Sarah Katz
  *
  */
@@ -23,7 +22,7 @@ public class CSVManager {
 
 	/**
 	 * This method exports the list of books in the Library in a .csv file
-	 * 
+	 *
 	 * @param library  the Library containing bookList
 	 * @param bookList the bookList you want exported in .csv
 	 */
@@ -32,9 +31,7 @@ public class CSVManager {
 		try {
 			bookListCSV = new FileWriter("Liste_des_livres.csv");
 			bookListCSV.append(HEADER).append(SEPARATOR);
-			Iterator<Book> it = bookList.iterator();
-			while (it.hasNext()) {
-				Book b = (Book) it.next();
+			for (Book b : bookList) {
 				int pageNumber = b.getPageNumber();
 				String pageNumberString = Integer.toString(pageNumber);
 				int copies = b.getCopies();
@@ -82,13 +79,13 @@ public class CSVManager {
 	 * This method imports the list of books in the Library from a .csv file The
 	 * .csv file must be named "Liste_des_livres.csv" and be in the root folder of
 	 * the program
-	 * 
+	 *
 	 * @param library  the Library containing bookList
 	 * @param bookList the bookList you want imported from the .csv
 	 */
 	protected static void importCSV(final Library library, final List<Book> bookList) {
 		try {
-			List<Book> newBookList = new ArrayList<Book>();
+			List<Book> newBookList = new ArrayList<>();
 			File file = new File("Liste_des_livres.csv");
 			Scanner in = new Scanner(file);
 			in.nextLine(); // Skips the first line in the .CSV to have an exception cause by non decimal

@@ -19,7 +19,7 @@ public class Menu {
 	public static void startProgram() {
 		try {
 			File file = new File("Liste_des_livres.csv");
-			List<Book> bookList = new ArrayList<Book>();
+			List<Book> bookList = new ArrayList<>();
 			Library library = new Library(bookList);
 			if (file.exists()) {
 				Scanner in = new Scanner(System.in);
@@ -50,7 +50,7 @@ public class Menu {
 	/**
 	 * This method calls the main menu to be displayed and let's user decide what
 	 * they want to do using numbers for action selection through a switch
-	 * 
+	 *
 	 * @param library
 	 * @param bookList
 	 */
@@ -78,7 +78,7 @@ public class Menu {
 				break;
 			case 3:
 				BookManager.searchBook(library, bookList);
-				break;			
+				break;
 			case 4:
 				CSVManager.importCSV(library, bookList);
 				break;

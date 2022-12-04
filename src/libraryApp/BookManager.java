@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  * This class contains the methods used to add new books to the library
- * 
+ *
  * @author Sarah Katz
  *
  */
@@ -20,7 +20,7 @@ public class BookManager {
 	/**
 	 * This method lets the user instance a new Book in bookList using parameters
 	 * he'll input
-	 * 
+	 *
 	 * @param bookList List of books registered in the program
 	 */
 	protected static void newBook(final Library library, final List<Book> bookList) {
@@ -70,12 +70,12 @@ public class BookManager {
 
 	/**
 	 * This method let's the user search a list of books by author name *
-	 * 
+	 *
 	 * @param bookList List of books registered in the program
 	 */
 	protected static void searchBook(final Library library, final List<Book> bookList) {
 		try {
-			List<Book> bookOfSearchedAuthor = new ArrayList<Book>();
+			List<Book> bookOfSearchedAuthor = new ArrayList<>();
 			Scanner in = new Scanner(System.in);
 			System.out.println("Retour menu : 'm'");
 			System.out.println("");
@@ -115,7 +115,7 @@ public class BookManager {
 
 	/**
 	 * This method will display infos about all books in the bookList param
-	 * 
+	 *
 	 * @param bookList List of books registered in the program
 	 */
 	protected static void showBookList(final Library library, final List<Book> bookList) {
@@ -162,7 +162,7 @@ public class BookManager {
 			final List<Book> bookOfSearchedAuthor) {
 		try {
 			Scanner in = new Scanner(System.in);
-			if (isFoundResult == true) {
+			if (isFoundResult) {
 				System.out
 						.println("Souhaitez-vous reserver un livre ou modifier ses informations ? (Oui : o / Non : n)");
 				String userSearchChoice = in.next();
@@ -237,11 +237,11 @@ public class BookManager {
 			String searchTitle = in.nextLine();
 			searchTitle.toLowerCase();
 			for (Book book : bookOfSearchedAuthor) {
-				if (rent == false && searchTitle.equalsIgnoreCase(book.getTitle())) {
+				if (!rent && searchTitle.equalsIgnoreCase(book.getTitle())) {
 					System.out.println("Vous avez selectionné" + " " + book.getTitle());
 					Book selectedBook = book;
 					bookModifier(library, bookList, selectedBook);
-				} else if (rent == true && searchTitle.equalsIgnoreCase(book.getTitle())) {
+				} else if (rent && searchTitle.equalsIgnoreCase(book.getTitle())) {
 					System.out.println("Vous avez selectionné" + " " + book.getTitle());
 					Book selectedBook = book;
 					userRentChoice(library, bookList, selectedBook);
@@ -353,7 +353,7 @@ public class BookManager {
 		try {
 			if (book.getCopies() == -1) {
 				System.out.println("Une erreur sur le nombre d'exemplaire est présente, merci de vérifier le fichier contenant la liste des livre");
-				Menu.mainMenu(library, bookList);				
+				Menu.mainMenu(library, bookList);
 			} else if(book.getCopies() <= 0) {
 				System.out.println("Désolé, le livre que vous souhaitez réserver est indisponible pour l'instant");
 				Menu.mainMenu(library, bookList);

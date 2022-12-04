@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * This class represents a book and it's informations : Title, Author, Genre,
  * Number of pages and Number of copies.
- * 
+ *
  * @author Sarah Katz
  *
  */
@@ -15,10 +15,10 @@ public class Book extends Library {
 	private String genre;
 	private int pageNumber;
 	private int copies;
-	
+
 	/**
 	 * This constructor creates an instance of Book using parameters
-	 * 
+	 *
 	 * @param bookList   the list containing books to be used in Library class
 	 * @param title      Book title
 	 * @param author     Book author
@@ -38,7 +38,7 @@ public class Book extends Library {
 
 	/**
 	 * this method can be called to display informations about the books in bookList
-	 * 
+	 *
 	 * @return List of books registered in the program
 	 */
 	public StringBuilder showBookInfos() {
@@ -119,5 +119,5 @@ public class Book extends Library {
 	 */
 	public void setCopies(final int copies) {
 		this.copies = copies;
-	}	
+	}
 }

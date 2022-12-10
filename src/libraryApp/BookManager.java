@@ -352,9 +352,10 @@ public class BookManager {
 	private static void bookRenter(final Library library, final List<Book> bookList, final Book book) {
 		try {
 			if (book.getCopies() == -1) {
-				System.out.println("Une erreur sur le nombre d'exemplaire est présente, merci de vérifier le fichier contenant la liste des livre");
+				System.out.println(
+						"Une erreur sur le nombre d'exemplaire est présente, merci de vérifier le fichier contenant la liste des livre");
 				Menu.mainMenu(library, bookList);
-			} else if(book.getCopies() <= 0) {
+			} else if (book.getCopies() <= 0) {
 				System.out.println("Désolé, le livre que vous souhaitez réserver est indisponible pour l'instant");
 				Menu.mainMenu(library, bookList);
 			} else {

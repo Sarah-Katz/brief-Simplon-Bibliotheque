@@ -134,8 +134,7 @@ public class CSVManager {
 			System.out.println("|Liste_des_livres.csv                                                          |");
 			System.out.println("|______________________________________________________________________________|");
 			Menu.mainMenu(library, bookList);
-		}
-		catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			System.out.println("___________________________________________________________________________________");
 			System.out.println("|                                                                                 |");
 			System.out.println("|Une erreur existe dans le fichier, veuillez verifier ses données et son formatage|");

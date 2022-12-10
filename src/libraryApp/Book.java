@@ -9,7 +9,7 @@ import java.util.List;
  * @author Sarah Katz
  *
  */
-public class Book extends Library {
+public class Book {
 	private String title;
 	private String author;
 	private String genre;
@@ -27,8 +27,8 @@ public class Book extends Library {
 	 * @param copies     Number of copies of the book
 	 * @param isRented   The book's availability
 	 */
-	public Book(final List<Book> bookList, final String title, final String author, final String genre, final int pageNumber, final int copies) {
-		super(bookList);
+	public Book(final List<Book> bookList, final String title, final String author, final String genre,
+			final int pageNumber, final int copies) {
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
